@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.C.S.</title>
+    <!-- Base URL for relative paths - works on both local and GitHub Pages -->
+    <script>
+        // Detect the correct base path for both local development and GitHub Pages
+        const currentPath = window.location.pathname;
+        let basePath = '/';
+
+        // If running on GitHub Pages, base path should be /web-design_Project/
+        if (currentPath.includes('/web-design_Project/')) {
+            basePath = '/web-design_Project/';
+        }
+
+        // Create base element
+        const base = document.createElement('base');
+        base.href = basePath;
+        document.head.insertBefore(base, document.head.firstChild);
+    </script>
+    <link rel="icon" type="image/ico" href="./img/32x32-ico.ico">
+    <link rel="stylesheet" type="text/css" href="./default_style.css">
+    <link rel="stylesheet" type="text/css" href="./form_default.css" data-scope=".usingFormDefaultStyle">
+    <script src="./switch.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/validator@13.15.23/validator.min.js" defer></script>
+    <script src="./particlebg.js" defer></script>
+</head>
+
+<body>
+    <div class="major-container">
+        <!--nav bar-->
+        <nav class="top-bar">
+            <a href="./" class="nav-logo">
+                <span>C.C.S.</span>
+            </a>
+            <div class="nav-button">
+                <div>
+                    <a href="#home">Home</a>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <a href="#services" class="dropbtn">Services</a>
+                        <div class="dropdown-content">
+                            <a href="#car-inspection">Car Inspection</a>
+                            <a href="#car-repair">Car Repair</a>
+                            <a href="#car-wash">Car Wash</a>
+                            <a href="#parts-sales">Parts Sales</a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="#about">About Us</a>
+                </div>
+                <div>
+                    <a href="#contact">Contact Us</a>
+                </div>
+                <div>
+                    <a href="#feedback">Feedback</a>
+                </div>
+                <div>
+                    <a href="#employ-recruitment">Employment & Recruitment</a>
+                </div>
+            </div>
+            <div class="signin-up-button">
+                <span>
+                    <a href="#sign_up">Sign Up</a>
+                    /
+                    <a href="#sign_in">Sign In</a>
+                </span>
+            </div>
+        </nav>
+        <!--content-->
+        <div class="container">
+            <div id="particles-js"></div>
+            <div class="main-content" id="main-content">
+                <p>Loading...</p>
+            </div>
+            <footer class="footer">
+                <p>&copy; 2025 Car Comprehensive Services Ltd. (C.C.S. Ltd.) all rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="#sitemap">Site Map</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
