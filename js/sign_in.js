@@ -1,0 +1,28 @@
+// Extracted scripts from sign_in.html
+
+(function () {
+console.log('Sign-in page script loaded');
+    function handlefunc(form) {
+        const username = form.username.value;
+        const password = form.password.value;
+
+        // For demonstration, we use hardcoded credentials.
+        const validCustomUsername = "user123";
+        const validCustomPassword = "pass123";
+
+        if (username === validCustomUsername && password === validCustomPassword) {
+            alert("Sign-in successful!");
+            // Redirect to main page or dashboard
+            window.location.hash = "#home";
+        } else {
+            alert("Invalid username or password. Please try again.");
+        }
+        return false;
+    }
+    const form = document.getElementById('sign-in-form');
+    form.onsubmit = function(event) {
+        event.preventDefault(); // Prevent default form submission
+        handlefunc(form);
+    };
+
+})();

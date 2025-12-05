@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C.C.S.</title>
+    <title><!--Add a website name here--></title>
     <!-- Base URL for relative paths - works on both local and GitHub Pages -->
     <script>
         // Detect the correct base path for both local development and GitHub Pages
@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="./default_style.css">
     <link rel="stylesheet" type="text/css" href="./form_default.css" data-scope=".usingFormDefaultStyle">
     <script src="./switch.js" defer></script>
+        <script src="./nav.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/validator@13.15.23/validator.min.js" defer></script>
     <script src="./particlebg.js" defer></script>
@@ -39,26 +40,25 @@
             <a href="./" class="nav-logo">
                 <span><!--Add a logo name here--></span>
             </a>
-            <div class="nav-button">
+            <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation">☰</button>
+            <div class="nav-button" id="navMenu">
                 <div>
                     <a href="#home">Home</a>
                 </div>
                 <div>
-                    <div class="dropdown">
-                        <a href="#?" class="dropbtn">???</a>
-                        <div class="dropdown-content">
-                            <a href="#???">???</a>
-                            <a href="#???">???</a>
-                            <a href="#???">???</a>
-                            <a href="#???">???</a>
-                        </div>
-                    </div>
+                    <a href="#about">About</a>
                 </div>
                 <div>
-                    <a href="#about">About Us</a>
+                    <a href="#work">Work Experience</a>
                 </div>
                 <div>
-                    <a href="#contact">Contact Us</a>
+                    <a href="#education">Education</a>
+                </div>
+                <div>
+                    <a href="#skills">Skills</a>
+                </div>
+                <div>
+                    <a href="#contact">Contact</a>
                 </div>
                 <div>
                     <a href="#feedback">Feedback</a>
@@ -89,5 +89,4 @@
         </div>
     </div>
 </body>
-
 </html>

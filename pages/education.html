@@ -1,0 +1,83 @@
+<!--This is not a independent page-->
+<!--It will be add in to a <div> element-->
+<!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
+
+<!--Education Background Page-->
+<style>
+    /*
+    .education-page {
+    }
+    */
+    .education-entry {
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .education-entry:last-child {
+        border-bottom: none;
+    }
+    .school-name {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 4px;
+    }
+    .degree-info {
+        font-size: 0.95em;
+        color: #666;
+        margin-bottom: 8px;
+    }
+    .education-description {
+        font-size: 1em;
+        line-height: 1.5;
+        color: #333;
+    }
+    .education-description ul {
+        margin-left: 20px;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="education-page">
+    <h1>教育背景 / Education Background</h1>
+    <p>以下為範例教育經歷（非真實內容）：</p>
+
+    <article class="education-entry">
+        <div class="school-name">某大學 / University ABC</div>
+        <div class="degree-info">學位：資訊科學學士 | Degree: Bachelor of Science in Computer Science | 2019 - 2023</div>
+        <div class="education-description">
+            <p>主要課程包括：程式設計、網頁開發、數據庫管理、算法設計等。</p>
+            <ul>
+                <li>GPA: 3.8 / 4.0</li>
+                <li>獲得最佳項目獎</li>
+                <li>參加多個編程競賽</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="education-entry">
+        <div class="school-name">某技術學院 / Technical Institute XYZ</div>
+        <div class="degree-info">課程：網頁設計與開發 | Course: Web Design & Development Diploma | 2017 - 2019</div>
+        <div class="education-description">
+            <p>專注於前端技術與用戶體驗設計。</p>
+            <ul>
+                <li>主要涵蓋 HTML、CSS、JavaScript 基礎</li>
+                <li>完成多個實際項目</li>
+                <li>成績優異，囲獲技術獎學金</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="education-entry">
+        <div class="school-name">線上課程認證 / Online Certifications</div>
+        <div class="degree-info">多個平台（Coursera、Udemy 等）的完成證書</div>
+        <div class="education-description">
+            <ul>
+                <li>React 高級課程（2023）</li>
+                <li>響應式網頁設計（2022）</li>
+                <li>JavaScript 進階（2021）</li>
+                <li>UI/UX 設計基礎（2021）</li>
+            </ul>
+        </div>
+    </article>
+</div>

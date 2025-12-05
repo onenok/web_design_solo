@@ -1,0 +1,82 @@
+<!--This is not a independent page-->
+<!--It will be add in to a <div> element-->
+<!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
+
+<!--Work Experience Page-->
+<style>
+    /*
+    .work-page {
+    }
+    */
+    .job-entry {
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .job-entry:last-child {
+        border-bottom: none;
+    }
+    .job-title {
+        font-size: 1.3em;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 4px;
+    }
+    .company-period {
+        font-size: 0.95em;
+        color: #666;
+        margin-bottom: 8px;
+    }
+    .job-description {
+        font-size: 1em;
+        line-height: 1.5;
+        color: #333;
+    }
+    .job-description ul {
+        margin-left: 20px;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="work-page">
+    <h1>工作經驗 / Work Experience</h1>
+    <p>以下為範例工作經歷（非真實內容）：</p>
+
+    <article class="job-entry">
+        <div class="job-title">前端工程師 / Frontend Developer</div>
+        <div class="company-period">Tech Company A | 2023 年 - 現在</div>
+        <div class="job-description">
+            <ul>
+                <li>使用 HTML、CSS 和 JavaScript 開發響應式網頁應用</li>
+                <li>與設計和後端團隊協作，實現用戶介面</li>
+                <li>優化網頁性能和使用者體驗</li>
+                <li>參與代碼審查和版本控制（Git）</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="job-entry">
+        <div class="job-title">網頁開發實習生 / Web Development Intern</div>
+        <div class="company-period">Web Studio B | 2022 年 - 2023 年</div>
+        <div class="job-description">
+            <ul>
+                <li>學習並實踐前端開發的基礎知識</li>
+                <li>協助維護和改進既有網站</li>
+                <li>參與小型項目的開發和測試</li>
+                <li>提升團隊協作和溝通技能</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="job-entry">
+        <div class="job-title">自由職業者 / Freelancer</div>
+        <div class="company-period">2021 年 - 2022 年</div>
+        <div class="job-description">
+            <ul>
+                <li>為中小型企業設計和開發個人網站</li>
+                <li>根據客戶需求定製功能和設計</li>
+                <li>提供技術支持和後續維護</li>
+            </ul>
+        </div>
+    </article>
+</div>

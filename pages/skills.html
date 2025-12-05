@@ -1,0 +1,120 @@
+<!--This is not a independent page-->
+<!--It will be add in to a <div> element-->
+<!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
+
+<!--need to edit-->
+<style>
+    /*
+    .skills-page {
+        
+    }
+    */
+</style>
+<div class="skills-page">
+    <h1>專長 / Skills</h1>
+    <p>以下展示範例技能，點擊卡片查看說明，使用上方按鈕篩選類別。</p>
+
+    <section class="skills-section">
+        <div class="skills-filter" role="tablist" aria-label="技能類別選擇">
+            <button data-filter="all" class="active">All</button>
+            <button data-filter="frontend">Frontend</button>
+            <button data-filter="backend">Backend</button>
+            <button data-filter="tools">Tools</button>
+        </div>
+
+        <div class="skills-grid" aria-live="polite">
+            <article class="skill-card" data-skill="frontend">
+                <div class="skill-title">HTML &amp; CSS</div>
+                <div class="skill-meta">Semantic HTML, Flexbox, Grid, Responsive</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:85%"></span></div>
+                <div class="skill-details">熟悉語意化標記、排版、響應式設計與 CSS3 特性，能將設計稿轉為可維護的樣式。</div>
+            </article>
+
+            <article class="skill-card" data-skill="frontend">
+                <div class="skill-title">JavaScript</div>
+                <div class="skill-meta">ES6+, DOM, Fetch API</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:75%"></span></div>
+                <div class="skill-details">會用純 JS 實作互動、非同步請求、以及模組化程式設計。</div>
+            </article>
+
+            <article class="skill-card" data-skill="frontend">
+                <div class="skill-title">React</div>
+                <div class="skill-meta">component, hooks</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:60%"></span></div>
+                <div class="skill-details">具備使用 React 建構元件與 Hooks 的基礎經驗（示範用途即可）。</div>
+            </article>
+
+            <article class="skill-card" data-skill="backend">
+                <div class="skill-title">Node.js / Express</div>
+                <div class="skill-meta">API, routing</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:55%"></span></div>
+                <div class="skill-details">了解如何建置簡單後端 API、處理路由與靜態檔案服務（示範用途）。</div>
+            </article>
+
+            <article class="skill-card" data-skill="backend">
+                <div class="skill-title">Python</div>
+                <div class="skill-meta">Scripting, data processing</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:50%"></span></div>
+                <div class="skill-details">熟悉用 Python 做簡單資料處理與自動化腳本。</div>
+            </article>
+
+            <article class="skill-card" data-skill="tools">
+                <div class="skill-title">Git &amp; GitHub</div>
+                <div class="skill-meta">版本控制</div>
+                <div class="skill-level" aria-hidden="true"><span style="width:80%"></span></div>
+                <div class="skill-details">會使用 Git 進行 commit、branch 以及基本的合併流程。</div>
+            </article>
+        </div>
+    </section>
+</div>
+<script>
+    console.log("Skills page script loaded.");
+    document.addEventListener('DOMContentLoaded', () => {
+    const filterBar = document.querySelector('.skills-filter');
+    const grid = document.querySelector('.skills-grid');
+    if (!grid || !filterBar) return;
+
+    const buttons = Array.from(filterBar.querySelectorAll('button'));
+    const cards = Array.from(grid.querySelectorAll('.skill-card'));
+
+    function applyFilter(category) {
+        cards.forEach(card => {
+        const cat = card.getAttribute('data-skill') || 'all';
+        if (category === 'all' || cat === category) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+        });
+    }
+
+    // set up filter buttons
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.getAttribute('data-filter');
+        applyFilter(category);
+        });
+    });
+
+    // set up expand/collapse on cards (toggle)
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+        // prevent triggering when clicking links inside (if any)
+        if (e.target.tagName.toLowerCase() === 'a') return;
+        card.classList.toggle('expanded');
+        // ensure expanded card is focused for accessibility
+        if (card.classList.contains('expanded')) {
+            card.setAttribute('tabindex', '-1');
+            card.focus();
+        } else {
+            card.removeAttribute('tabindex');
+        }
+        });
+    });
+
+    // initial state: show all
+    applyFilter('all');
+    });
+</script>
