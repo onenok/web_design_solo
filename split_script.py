@@ -16,11 +16,13 @@ for filename in os.listdir("./pages"):
             html_content = f.read()
 
         scripts = script_pattern.findall(html_content)
-
         if scripts:
+            theConsoleText = r"console.log\([\'\"]\w+(?:[-\s]?\w*)*? page script loaded(\.)?[\'\"]\);"
+            console_patten = re.compile(theConsoleText, re.IGNORECASE)
             with open(js_filename, "w", encoding="utf-8") as js_file:
                 js_file.write(f"// Extracted scripts from {filename}\n\n")
                 for attrs, content in scripts:
+                    # check if there is not console.log indicating script loaded, if not, add one.
                     # 如果有 src 屬性
                     src_match = re.search(r'src=["\'](.*?)["\']', attrs)
                     if src_match:
@@ -28,6 +30,9 @@ for filename in os.listdir("./pages"):
                     # 如果有內嵌內容
                     if content.strip():
                         js_file.write("(function () {\n")
+                        if not console_patten.search(content):
+                            js_file.write(f"console.log('{os.path.splitext(filename)[0].replace('_', '-')} page script loaded.');\n\n")
+
                         js_file.write(content.strip() + "\n\n")
                         js_file.write("})();\n")
             print(f"Extracted scripts to {js_filename}")

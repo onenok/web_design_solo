@@ -34,25 +34,38 @@ function fetchPage(page, contentDiv) {
         contentDiv.focus();
         const allExistingScripts = document.querySelectorAll('script[data-page-script]');
         allExistingScripts.forEach(script => {script.remove();}); // remove previously added page scripts
-        fetch(JsFile) // check if JS file exists
-        .then(response => {
-            if (response.ok) {
-                return response.text();
-            }
-            throw new Error('no associated JS file');
-        })
-        .then(() => {
-            // add the script to the document, even it was already added, cuz we need to run it again
-            const script = document.createElement('script');
-            script.src = JsFile;
-            script.setAttribute('data-name', pageName);
-            script.setAttribute('data-page-script', 'true');
-            script.setAttribute('type', 'module');
-            document.body.appendChild(script);
-        })
-        .catch(error => {
-            // pass
-        });
+        try {
+            fetch(JsFile) // check if JS file exists
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                if (response.status === 404) {
+                    console.info(`Page "${pageName}" has no associated JS file.`);
+                    throw new Error('no associated JS file');
+                }
+                throw new Error('failed to load JS file');
+            })
+            .then(() => {
+                // add the script to the document, even it was already added, cuz we need to run it again
+                const script = document.createElement('script');
+                script.src = JsFile;
+                script.setAttribute('data-name', pageName);
+                script.setAttribute('data-page-script', 'true');
+                script.setAttribute('type', 'module');
+                document.body.appendChild(script);
+            })
+            .catch(error => {
+                if (error.message !== 'no associated JS file') {
+                    console.error(error);
+                }
+                else {
+                    // do nothing, already logged
+                }
+            });
+        } catch (e) {
+            console.info(`Page "${pageName}" has no associated JS file.`);
+        }
     })
     .catch(error => {
         contentDiv.innerHTML = `<p tabindex="-1">failed to load page "${pageName}", please try again later。</p>`;

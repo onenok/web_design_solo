@@ -1,52 +1,86 @@
-// nav.js - automatically switch to hamburger menu when nav buttons wrap
+// nav.js - handle navigation overflow for desktop
 console.log("Navigation script loaded.");
 document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const topBar = document.querySelector('nav.top-bar');
   const navButton = document.querySelector('.nav-button');
   const navToggle = document.querySelector('.nav-toggle');
+  const navOverflowButton = document.querySelector('.nav-overflow-button');
+  const overflowList = document.querySelector('.nav-overflow-list');
+  // Elements used for width calculation – defined once for performance
+  const topBar = document.querySelector('.top-bar');
+  const logo = document.querySelector('.nav-logo');
+  const signUpButton = document.querySelector('.signin-up-button');
   
-  if (!topBar || !navButton || !navToggle) return;
+  if (!navButton || !navToggle || !navOverflowButton || !overflowList) return;
 
-  // Store the single-line height (initial render without wrapping)
-  function checkNavWrapping() {
-    // Use width-based detection: compare needed width for nav + logo + signin against available topBar width
-    const topRect = topBar.getBoundingClientRect();
-    const navRect = navButton.getBoundingClientRect();
-    const logo = document.querySelector('.nav-logo');
-    const logoRect = logo ? logo.getBoundingClientRect() : { width: 0 };
-    const signin = document.querySelector('.signin-up-button');
-    const signinRect = signin ? signin.getBoundingClientRect() : { width: 0 };
-
-    // Amount of horizontal space the nav items actually need
-    const neededWidth = navButton.scrollWidth + logoRect.width + signinRect.width + 32; // buffer
-    const availableWidth = topRect.width;
-
-    // Also check if nav visually overflows to the right
-    const isOverflowingX = navRect.right > (topRect.right - 8);
-
-    if (neededWidth > availableWidth || isOverflowingX) {
-      // Enable hamburger mode
-      console.log('Nav overflowing horizontally — enabling hamburger mode', { neededWidth, availableWidth, isOverflowingX });
-      body.classList.add('wrapped');
-      navToggle.style.display = 'inline-block';
-    } else {
-      // Disable hamburger mode
-      console.log('Nav fits horizontally — disabling hamburger mode', { neededWidth, availableWidth, isOverflowingX });
-      body.classList.remove('wrapped');
-      navButton.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
-      navToggle.style.display = '';
+  // Desktop overflow handling (> 768px)
+  function checkForOverflow() {
+    // Only run for desktop width
+    if (window.innerWidth <= 768) {
+      navOverflowButton.style.display = '';
+      return;
     }
+    if (navButton.classList.contains('open')) {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navButton.classList.remove('open');
+      document.body.classList.remove('nav-open');
+    }
+
+    // Get all direct child divs (which contain the nav items)
+    const navItems = Array.from(navButton.children);
+    // Calculate available width: top-bar width minus logo and sign‑up/in widths
+    let containerWidth = navButton.clientWidth;
+    if (topBar && logo && signUpButton && navOverflowButton) {
+      containerWidth = topBar.clientWidth - logo.offsetWidth - signUpButton.offsetWidth - navOverflowButton.offsetWidth;
+    }
+    const overflowMenuWidth = 50; // space reserved for overflow button
+    
+    // Clear previous overflow items
+    overflowList.innerHTML = '';
+    
+    let currentWidth = 0;
+    const itemsToMove = [];
+    let navButtonWidth = 0;
+    // Iterate through items and check for overflow
+    navItems.forEach((item, index) => {
+      const itemWidth = item.offsetWidth;
+      currentWidth += itemWidth;
+
+      // If adding this item would exceed container, move it to overflow
+      if (currentWidth + overflowMenuWidth > containerWidth) {
+        itemsToMove.push(item.cloneNode(true)); // Clone to overflow list
+      } else {
+        navButtonWidth += itemWidth;
+      }
+    });
+    navButton.style.width = navButtonWidth + 'px';
+    // Update overflow list
+    if (itemsToMove.length > 0) {
+      itemsToMove.forEach(item => {
+        overflowList.appendChild(item);
+      });
+      overflowList.classList.add('show');
+      navOverflowButton.style.display = 'inline-block';
+    } else {
+      overflowList.classList.remove('show');
+      navOverflowButton.style.display = '';
+    }
+
+    console.log('Desktop overflow check', { currentWidth, containerWidth, overflowed: itemsToMove.length });
   }
 
-  // Check on load and whenever window resizes
-  window.addEventListener('load', checkNavWrapping);
-  window.addEventListener('resize', checkNavWrapping);
-  checkNavWrapping();
+  // Initial check and event listeners
+  window.addEventListener('load', checkForOverflow);
+  window.addEventListener('resize', checkForOverflow);
+  checkForOverflow();
 
-  // Setup hamburger toggle functionality
+  // Setup overflow menu toggle
+  navButton.addEventListener('click', () => {
+    if (navButton.classList.contains('open')) {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navButton.classList.remove('open');
+      document.body.classList.remove('nav-open');
+    }
+  });
   navToggle.addEventListener('click', () => {
     const expanded = navToggle.getAttribute('aria-expanded') === 'true';
     navToggle.setAttribute('aria-expanded', String(!expanded));
@@ -56,12 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
-    if (!navButton.classList.contains('open')) return;
+    if (!overflowList.classList.contains('show')) return;
     if (e.target === navToggle) return;
-    if (navButton.contains(e.target)) return;
+    if (overflowList.contains(e.target)) return;
     
-    navButton.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('nav-open');
+    overflowList.classList.remove('show');
   });
 });
