@@ -2,17 +2,16 @@
 <!--It will be add in to a <div> element-->
 <!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
 
-<!--need to edit-->
 <style>
-    .about-page {
-        .aWeirdThing {
+    .about-page { padding: 18px; }
+    .about-meta { color: #444; margin-top: 8px; }
+    .aWeirdThing {
             margin-top: auto;
             font-size: 2px;
             color: gray;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
         .aWeirdThing p {
             margin: 0;
         }
@@ -20,9 +19,28 @@
 </style>
 
 <div class="about-page">
-    <h1>關於我們</h1>
-    <p>歡迎來到 JustAWebSite！這是一個為提交我的作業而創建的簡單網站。</p>
-    <p>也許將來我會在這裡添加更多內容。（如果我感到無聊或可以在後續作業中使用）</p>
+    <h1>關於我</h1>
+    <p class="about-meta">嗨，我是Ho Nok Hei，正如主頁說的那一樣, 我是一名實用主義程式開發者。<br>我一般是為了解決某些事情或覺得有趣才會寫的程式，主要使用JavaScript、Python、c++、(HTML、CSS, 如果這2個算程式語言的話)等編程語言。<br>若你想查看我的作品，請瀏覽我的<a href="https://github.com/onenok">GitHub</a>，如果可以贊助我一下就更好了。</p>
+
+    <section>
+        <h2>我的專長</h2>
+        <ul>
+            <li>弄一些有趣的小玩意</li>
+            <li>在group project中擔任編程主力(但不要以為我的程度很高)</li>
+            <li>還有什么呢？我沒有想到</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>我的目標</h2>
+        <p class="about-meta">我能有什么目標。就如上面所說，只是為了解決某些事情或覺得有趣而寫的程式。但如果你不嫌棄, 歡迎在 <a href="#repos">倉庫頁面</a> 查看我的作品。</p>
+    </section>
+
+    <div class="contact">
+        <h2>聯絡我</h2>
+        <p class="about-meta">如果你有合作或工作機會，歡迎透過 <a href="#contact">聯絡頁面</a> 中的聯絡方式與我聯繫。</p>
+    </div>
+
     <div class="aWeirdThing">
         <p>如果您看到這個，您可能太無聊了，或者只是打開了開發者工具。</p>
     </div>

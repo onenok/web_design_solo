@@ -5,21 +5,90 @@
 <!--need to edit-->
 <link rel="stylesheet" href="../repos.css">
 <style>
-/*
+    /* basic fallback styles for repo list */
     .repos-page {
+        padding: 18px;
     }
-*/
+
+    .repo {
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .repo h3 {
+        margin: 0 0 6px 0;
+        font-size: 1.05rem;
+    }
+
+    .repo p {
+        margin: 0 0 8px 0;
+        color: #444;
+    }
+
+    .repo .meta {
+        font-size: 0.85rem;
+        color: #666;
+    }
 </style>
 <div class="repos-page">
-    <h1>name</h1>
-    <p>這是name的內容。</p>
-    <div class="repos"></div>
+    <h1>我的 GitHub 倉庫</h1>
+    <p>下面列出我最近更新或想展示的 5 個 repositories（連結會在新分頁開啟）。</p>
+    <div id="repos">載入中…</div>
+    <button onclick="window.open('https://github.com/onenok?tab=repositories', '_blank')">查看更多</button>
 </div>
 <script>
-    $(function(){
-        $('div.repos').repos({
-            username:'onenok',
-            count:4
-        });
-    });
+    // Load and render GitHub repos without external plugins
+    async function loadRepos(username, count = 5) {
+        const container = document.getElementById('repos');
+        if (!container) return;
+        container.innerHTML = 'Loading…';
+        try {
+            console.log('Fetching GitHub repos for', username);
+            const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=${count}`);
+            console.log('GitHub API response status:', res.status);
+            if (!res.ok) throw new Error('GitHub API: ' + res.status);
+            const repos = await res.json();
+            // For forked repos, fetch detail to obtain parent info
+            const forks = repos.filter(r => r.fork && r.url);
+            if (forks.length) {
+                await Promise.all(forks.map(async r => {
+                    try {
+                        const d = await fetch(r.url);
+                        if (!d.ok) return;
+                        const detail = await d.json();
+                        if (detail.parent) {
+                            r._parent = {
+                                full_name: detail.parent.full_name,
+                                html_url: detail.parent.html_url
+                            };
+                        }
+                    } catch (e) {
+                        console.warn('Failed to fetch repo detail for', r.name, e);
+                    }
+                }));
+            }
+            if (!Array.isArray(repos) || repos.length === 0) {
+                container.innerHTML = '<p>No repositories found.</p>';
+                return;
+            }
+            console.log('Fetched repos:', repos);
+            container.innerHTML = repos.map(r => `
+                <article class="repo">
+                    <h3>
+                      <a href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a>
+                      ${r._parent ? `<small>（Forked from <a href="${r._parent.html_url}" target="_blank" rel="noopener">${r._parent.full_name}</a>）</small>` : ''}
+                    </h3>
+                    <p>${r.description ? r.description.replace(/</g, '&lt;') : '<em>No description</em>'}</p>
+                    <div class="meta">${r.language ? r.language + ' • ' : ''}★ ${r.stargazers_count} • ${r.license ? 'License: ' + (r.license.spdx_id == "NOASSERTION" ? r.license.name : r.license.spdx_id) + ' • ' : ''}Updated: ${new Date(r.updated_at).toLocaleDateString()}</div>
+                </article>
+            `).join('');
+        } catch (err) {
+            console.error(err);
+            container.innerHTML = '<p>Failed to load GitHub repositories, please try again later or check the console.</p>';
+        }
+    }
+    loadRepos('onenok', 5);
 </script>

@@ -1,6 +1,10 @@
 // Extracted scripts from showFormValue.html
 
+console.log('showFormValue page script loaded.');
+
 (function () {
+console.log('showFormValue page script loaded Double Check.');
+
 console.log('Show Form Values page script loaded');
     const items = sessionStorage.getItem("submittedItems").split(','); // a list of items []
     console.log(items);
