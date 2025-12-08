@@ -3,47 +3,60 @@
 <!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
 
 <style>
-    .contact-page { padding: 18px; }
-    .contact-form { max-width: 520px; margin-top: 12px; }
-    .contact-form label { display:block; margin-top:8px; font-size:0.95rem; }
-    .contact-form input, .contact-form textarea { width:100%; box-sizing:border-box; padding:8px; margin-top:6px; }
-    .contact-note { font-size:0.9rem; color:#666; margin-top:10px; }
 </style>
 
-<div class="contact-page">
-    <h1>聯絡我</h1>
-    <p>歡迎透過下列方式與我聯絡：無論是合作機會、問題或建議，都很樂意收到訊息。</p>
+<div class="contact-page usingFormDefaultStyle">
+    <h1>Contact Me</h1>
+    <p>Welcome to contact me through the following methods: whether it's collaboration opportunities, questions, or suggestions, I am happy to receive messages.</p>
 
-    <div class="contact-form" aria-live="polite">
-        <label for="c-name">姓名</label>
-        <input id="c-name" name="name" type="text" placeholder="你的名字">
+    <form class="form-container" id="contact-form" action="javascript:void(0)" method="post">
+        <div class="form-input-group">
+            <label for="c-name" class="form-label">Name</label>
+            <input id="c-name" name="name" type="text" placeholder="Your Name" class="form-input"
+                autocomplete="off" required>
+        </div>
+        <div class="form-input-group">
+            <label for="c-email" class="form-label">Email</label>
+            <input id="c-email" name="email" type="email" placeholder="your@email.com" class="form-input"
+                autocomplete="off" required>
+        </div>
+        <div class="form-input-group">
+            <label for="c-message" class="form-label">Message</label>
+            <textarea id="c-message" name="message" rows="6" placeholder="Please enter your message..." class="form-input"></textarea>
+        </div>
 
-        <label for="c-email">電子郵件</label>
-        <input id="c-email" name="email" type="email" placeholder="your@email.com">
+        <input type="submit" id="c-send" class="form-submit-button" value="Send (will open mailto)">
+    </form>
 
-        <label for="c-message">訊息</label>
-        <textarea id="c-message" name="message" rows="6" placeholder="請輸入您的訊息..."></textarea>
-
-        <button id="c-send">送出（會用 mailto 開啟）</button>
-
-        <p class="contact-note">備註：此為簡易前端表單，送出會以預設郵件客戶端處理。如需真正的後端處理，請整合伺服器端 API。</p>
-    </div>
-
-    <h2>或直接寫信</h2>
+    <h2>Or send an email directly</h2>
     <p><a href="mailto:s24214373@mail.sfu.edu.hk?subject=Contact%20from%20site">s24214373@mail.sfu.edu.hk</a></p>
 
 </div>
 
 <script>
-// Simple client-side mailto fallback: open user's mail client with form values
-document.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'c-send') {
-        const name = document.getElementById('c-name').value || '匿名';
-        const email = document.getElementById('c-email').value || '';
-        const msg = document.getElementById('c-message').value || '';
-        const subject = encodeURIComponent('網站聯絡：' + name);
-        const body = encodeURIComponent(`來自：${name}\n電子郵件：${email}\n\n${msg}`);
-        window.location.href = `mailto:s24214373@mail.sfu.edu.hk?subject=${subject}&body=${body}`;
+    // Simple client-side mailto fallback: open user's mail client with form values
+    function doubleCheckAndSave(form) {
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name || !email) {
+            alert("Please fill in your name and email.");
+            return false;
+        }
+
+        if (!validator.isEmail(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+
+        const mailtoLink = `mailto:s24214373@mail.sfu.edu.hk?subject=Contact from site: ${encodeURIComponent(name)}&body=${encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`)}`;
+        window.location.href = mailtoLink;
+        return false;
     }
-});
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        doubleCheckAndSave(contactForm);
+    });
 </script>

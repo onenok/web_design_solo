@@ -53,6 +53,16 @@ const filterBar = document.querySelector('.skills-filter');
         });
     });
 
+    window.addEventListener('click', (e) => {
+        // collapse cards if clicking outside
+        if (!e.target.closest('.skill-card')) {
+            cards.forEach(card => {
+                card.classList.remove('expanded');
+                card.removeAttribute('tabindex');
+            });
+        }
+    });
+
     // initial state: show all
     applyFilter('all');
 

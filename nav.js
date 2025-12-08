@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navButton = document.querySelector('.nav-button');
   const navToggle = document.querySelector('.nav-toggle');
   const navOverflowButton = document.querySelector('.nav-overflow-button');
-  const overflowList = document.querySelector('.nav-overflow-list');
+  const overflowList = document.querySelector('#nav-overflow-list');
   // Elements used for width calculation – defined once for performance
   const topBar = document.querySelector('.top-bar');
   const logo = document.querySelector('.nav-logo');
@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let navButtonWidth = 0;
     // Iterate through items and check for overflow
     navItems.forEach((item, index) => {
+      // skip it, this only display when vw < 400px in mobile view
+      if (item.className === 'not-enough-space-signin-up-button') return; 
       const itemWidth = item.offsetWidth;
       currentWidth += itemWidth;
 

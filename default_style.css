@@ -110,6 +110,7 @@ nav.top-bar {
         align-items: center;
         overflow-x: hidden;
         text-overflow: ellipsis;
+        text-align: center;
 
         div {
             display: flex;
@@ -147,9 +148,6 @@ nav.top-bar {
         cursor: pointer;
         padding: 0.5rem 1rem;
 
-    }
-    .nav-overflow-list {
-        display: none; /* hidden by default until overflow items exist */
     }
 
     .nav-toggle {
@@ -192,7 +190,7 @@ a.dropbtn:hover {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
-    top: 135%;
+    top: 100%;
     left: 0;
     border: 1px solid var(--nav-text-color);
 
@@ -257,7 +255,7 @@ footer {
     to   { transform: translateY(0); }
 }
 
-.main-content > div[class$="-page"] {
+.main-content > div[class*="-page"] {
     animation: fadeIn 0.4s ease-out;
     margin-left: auto;
     margin-right: auto;
@@ -276,6 +274,7 @@ footer {
         margin-top: 20px;
         cursor: pointer;
         align-self: center;
+        padding: 0 15px;
         border-radius: 10px;
         background-color: rgba(0, 0, 0, 0.1);
     }
@@ -313,7 +312,7 @@ footer {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 350px) {
+@media (max-width: 400px) {
     nav.top-bar {
         .signin-up-button {
             display: none;
@@ -462,5 +461,8 @@ footer {
         font-size: 1rem;
     }
 
-    button { touch-action: manipulation; }
+    button { 
+        touch-action: manipulation; 
+        padding: 0px;
+    }
 }

@@ -78,7 +78,7 @@
             background: linear-gradient(90deg, #4facfe, #00f2fe);
         }
         .skill-card[data-skill="???"] .skill-level>span {
-            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            background: linear-gradient(90deg, #ff5c4f, #ff7e43);
         }
 
         .skill-details {
@@ -108,10 +108,10 @@
 </style>
 <div class="skills-page">
     <h1>Skills</h1>
-    <p>以下為我的技能，點擊卡片查看說明，使用上方按鈕篩選類別。</p>
+    <p>Below are my skills. Click on the cards to see descriptions, and use the buttons above to filter categories.</p>
 
     <section class="skills-section">
-        <div class="skills-filter" role="tablist" aria-label="技能類別選擇">
+        <div class="skills-filter" role="tablist" aria-label="Skill Category Selection">
             <button data-filter="all" class="active">All</button>
             <button data-filter="frontend">Frontend</button>
             <button data-filter="backend">Backend</button>
@@ -120,82 +120,82 @@
         </div>
 
         <div class="skills-grid" aria-live="polite">
-            <article class="skill-card" data-skill="frontend">
-                <div class="skill-title">HTML &amp; CSS</div>
+            <section class="skill-card" data-skill="frontend">
+                <div class="skill-title">HTML & CSS</div>
                 <div class="skill-meta">Semantic HTML, Flexbox, Grid, Responsive</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:75%"></span></div>
-                <div class="skill-details">能弄出這個網站, 個人認為水平一般。</div>
-            </article>
+                <div class="skill-details">Able to create this website, I consider my skill level to be average.</div>
+            </section>
 
-            <article class="skill-card" data-skill="frontend">
+            <section class="skill-card" data-skill="frontend">
                 <div class="skill-title">JavaScript</div>
                 <div class="skill-meta">ES6+, DOM, Fetch API</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:70%"></span></div>
-                <div class="skill-details">我也有在這個網站使用javascript弄一些function。</div>
-            </article>
+                <div class="skill-details">I also used JavaScript to create some functions on this website.</div>
+            </section>
 
-            <article class="skill-card" data-skill="frontend">
+            <section class="skill-card" data-skill="frontend">
                 <div class="skill-title">React</div>
-                <div class="skill-meta">不清楚,反正就是這個React的東西。</div>
+                <div class="skill-meta">Not sure, it's just this React thing.</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:10%"></span></div>
-                <div class="skill-details">曾經用過一下，但是當時還沒有搞懂。</div>
-            </article>
+                <div class="skill-details">I have used it a bit, but I didn't really understand it at the time.</div>
+            </section>
 
-            <article class="skill-card" data-skill="backend">
+            <section class="skill-card" data-skill="backend">
                 <div class="skill-title">Python</div>
                 <div class="skill-meta">Scripting, data processing</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:75%"></span></div>
-                <div class="skill-details">熟悉用 Python 做簡單資料處理與自動化腳本。</div>
-            </article>
+                <div class="skill-details">Familiar with using Python for simple data processing and automation scripts.</div>
+            </section>
 
-            <article class="skill-card" data-skill="backend">
+            <section class="skill-card" data-skill="backend">
                 <div class="skill-title">C++</div>
-                <div class="skill-meta">唔知點形容,就係基本C++嘅野</div>
+                <div class="skill-meta">Basic C++ knowledge</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:60%"></span></div>
-                <div class="skill-details">在學校課程中學過, 了解基本語法和概念。能處理一般data structure與algorithm問題。</div>
-            </article>
+                <div class="skill-details">Learned in school courses, understanding basic syntax and concepts. Able to handle general data structure and algorithm problems.</div>
+            </section>
 
-            <article class="skill-card" data-skill="tools">
-                <div class="skill-title">Git &amp; GitHub</div>
-                <div class="skill-meta">版本控制</div>
+            <section class="skill-card" data-skill="tools">
+                <div class="skill-title">Git & GitHub</div>
+                <div class="skill-meta">Version Control</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:80%"></span></div>
-                <div class="skill-details">會使用 Git 進行 commit、branch 以及基本的合併流程。</div>
-            </article>
+                <div class="skill-details">Familiar with using Git for commits, branching, and basic merge processes.</div>
+            </section>
 
-            <article class="skill-card" data-skill="tools">
+            <section class="skill-card" data-skill="tools">
                 <div class="skill-title">VS Code</div>
-                <div class="skill-meta">程式編輯器</div>
+                <div class="skill-meta">Code Editor</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:90%"></span></div>
-                <div class="skill-details">熟悉使用 Visual Studio Code 進行程式編輯與除錯。</div>
-            </article>
+                <div class="skill-details">Familiar with using Visual Studio Code for code editing and debugging.</div>
+            </section>
 
-            <article class="skill-card" data-skill="???">
-                <div class="skill-title">拖延症</div>
-                <div class="skill-meta">拖拖拖拖拖拖拖拖拖拖拖拖拖拖拖</div>
+            <section class="skill-card" data-skill="???">
+                <div class="skill-title">Procrastination</div>
+                <div class="skill-meta">"Pro-aetern-ation"</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:100%"></span></div>
-                <div class="skill-details">把每件事情都拖到接近deadline才做</div>
-            </article>
+                <div class="skill-details">I tend to leave everything until close to the deadline.</div>
+            </section>
 
-            <article class="skill-card" data-skill="???">
-                <div class="skill-title">懶</div>
-                <div class="skill-meta">懶得寫</div>
+            <section class="skill-card" data-skill="???">
+                <div class="skill-title">Lazy</div>
+                <div class="skill-meta">Too lazy to write</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:100%"></span></div>
-                <div class="skill-details">懶癌末期</div>
-            </article>
+                <div class="skill-details">End-stage laziness</div>
+            </section>
 
-            <article class="skill-card" data-skill="???">
-                <div class="skill-title">記憶力缺乏</div>
-                <div class="skill-meta">啱啱講過嘅嘢轉個頭唔記得</div>
+            <section class="skill-card" data-skill="???">
+                <div class="skill-title">Memory Deficiency</div>
+                <div class="skill-meta">I forget what I just said moments ago</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:100%"></span></div>
-                <div class="skill-details">但亦都令我唔會記住啲唔開心嘅嘢, 同埋我唔太會記仇</div>
-            </article>
+                <div class="skill-details">But it also means I don't remember unhappy things, and I don't hold grudges very well</div>
+            </section>
 
-            <article class="skill-card" data-skill="???">
-                <div class="skill-title">注意力不足</div>
+            <section class="skill-card" data-skill="???">
+                <div class="skill-title">Attention Deficit</div>
                 <div class="skill-meta">ADHD?</div>
                 <div class="skill-level" aria-hidden="true"><span style="width:100%"></span></div>
-                <div class="skill-details">啱啱整緊嗰陣時，唔小心走樣去睇youtube</div>
-            </article>
+                <div class="skill-details">I accidentally got distracted watching YouTube while working just now</div>
+            </section>
         </div>
     </section>
 </div>
@@ -246,6 +246,16 @@
                 card.removeAttribute('tabindex');
             }
         });
+    });
+
+    window.addEventListener('click', (e) => {
+        // collapse cards if clicking outside
+        if (!e.target.closest('.skill-card')) {
+            cards.forEach(card => {
+                card.classList.remove('expanded');
+                card.removeAttribute('tabindex');
+            });
+        }
     });
 
     // initial state: show all

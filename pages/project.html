@@ -3,48 +3,66 @@
 <!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
 
 <!--need to edit-->
-<link rel="stylesheet" href="../repos.css">
 <style>
     /* basic fallback styles for repo list */
-    .repos-page {
+    .project-page {
         padding: 18px;
     }
 
     .repo {
         border: 1px solid rgba(0, 0, 0, 0.06);
         padding: 12px;
-        margin-bottom: 12px;
+        margin: auto;
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.9);
+
+        h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.05rem;
+        }
+
+        p {
+            margin: 0 0 8px 0;
+            color: #444;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
     }
 
-    .repo h3 {
-        margin: 0 0 6px 0;
-        font-size: 1.05rem;
+    #loading {
+        text-align: center;
+        align-self: center;
+        margin: auto;
+        font-size: 1.2rem;
+        color: #888;
     }
 
-    .repo p {
-        margin: 0 0 8px 0;
-        color: #444;
-    }
-
-    .repo .meta {
-        font-size: 0.85rem;
-        color: #666;
-    }
 </style>
-<div class="repos-page">
-    <h1>我的 GitHub 倉庫</h1>
-    <p>下面列出我最近更新或想展示的 5 個 repositories（連結會在新分頁開啟）。</p>
-    <div id="repos">載入中…</div>
-    <button onclick="window.open('https://github.com/onenok?tab=repositories', '_blank')">查看更多</button>
+<div class="project-page">
+    <h1>My GitHub Repositories</h1>
+    <p>Below are the 5 most recently updated or showcased repositories (links will open in a new tab).</p>
+    <div id="repos"><h1 id="loading">Loading…</h1></div>
+    <button onclick="window.open('https://github.com/onenok?tab=repositories', '_blank')">View More</button>
 </div>
 <script>
+    function loadingAnimation() {
+        const loadingEl = document.getElementById('loading');
+        if (!loadingEl) return;
+        let dots = 0;
+        return setInterval(() => {
+            dots = (dots + 1) % 4;
+            loadingEl.textContent = 'Loading' + '.'.repeat(dots);
+        }, 500);
+    }
+    const loadingInterval = loadingAnimation();
+    
     // Load and render GitHub repos without external plugins
     async function loadRepos(username, count = 5) {
         const container = document.getElementById('repos');
         if (!container) return;
-        container.innerHTML = 'Loading…';
         try {
             console.log('Fetching GitHub repos for', username);
             const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=${count}`);
@@ -75,15 +93,16 @@
                 return;
             }
             console.log('Fetched repos:', repos);
+            clearInterval(loadingInterval);
             container.innerHTML = repos.map(r => `
-                <article class="repo">
+                <section class="repo">
                     <h3>
                       <a href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a>
                       ${r._parent ? `<small>（Forked from <a href="${r._parent.html_url}" target="_blank" rel="noopener">${r._parent.full_name}</a>）</small>` : ''}
                     </h3>
                     <p>${r.description ? r.description.replace(/</g, '&lt;') : '<em>No description</em>'}</p>
                     <div class="meta">${r.language ? r.language + ' • ' : ''}★ ${r.stargazers_count} • ${r.license ? 'License: ' + (r.license.spdx_id == "NOASSERTION" ? r.license.name : r.license.spdx_id) + ' • ' : ''}Updated: ${new Date(r.updated_at).toLocaleDateString()}</div>
-                </article>
+                </section>
             `).join('');
         } catch (err) {
             console.error(err);
