@@ -1,8 +1,6 @@
 <!--This is not a independent page-->
 <!--It will be add in to a <div> element-->
 <!--no need to start with <!DOCTYPE html> <html> <head> <body> tags-->
-
-
 <style>
     .sign-in-page {
         display: flex;
@@ -32,6 +30,11 @@
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" class="form-input"
                     autocomplete="off" required><br><br>
+            </div>
+            <div class="form-input-group">
+                <button type="button" class="form-link-button" onclick="alert('This feature is not implemented yet.');">
+                    Forgot Password
+                </button>
             </div>
             <input type="submit" value="Sign In" class="form-submit-button">
         </form>
