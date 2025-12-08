@@ -14,9 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Desktop overflow handling (> 768px)
   function checkForOverflow() {
+    // Get all direct child divs (which contain the nav items)
+    const navItems = Array.from(navButton.children);
     // Only run for desktop width
     if (window.innerWidth <= 768) {
       navOverflowButton.style.display = '';
+      navItems.forEach(item => {
+        item.style = '';
+        item.removeAttribute('aria-hidden');
+        item.removeAttribute('tabindex');
+      });
       return;
     }
     if (navButton.classList.contains('open')) {
@@ -24,9 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navButton.classList.remove('open');
       document.body.classList.remove('nav-open');
     }
-
-    // Get all direct child divs (which contain the nav items)
-    const navItems = Array.from(navButton.children);
     // Calculate available width: top-bar width minus logo and sign‑up/in widths
     let containerWidth = navButton.clientWidth;
     if (topBar && logo && signUpButton && navOverflowButton) {
@@ -44,20 +48,37 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach((item, index) => {
       // skip it, this only display when vw < 400px in mobile view
       if (item.className === 'not-enough-space-signin-up-button') return; 
-      const itemWidth = item.offsetWidth;
+      const itemWidth = item.getBoundingClientRect().width;
+      console.log(`Nav item ${index} width: ${itemWidth}px`);
       currentWidth += itemWidth;
 
       // If adding this item would exceed container, move it to overflow
       if (currentWidth + overflowMenuWidth > containerWidth) {
         itemsToMove.push(item.cloneNode(true)); // Clone to overflow list
+        item.style.opacity = '0'; // Hide original
+        item.style.pointerEvents = 'none';
+        item.style.userSelect = 'none';
+        item.setAttribute('aria-hidden', 'true');
+        item.setAttribute('tabindex', '-1');
       } else {
+        item.style.opacity = ''; // Show original
+        item.style.pointerEvents = '';
+        item.style.userSelect = '';
+        item.removeAttribute('aria-hidden');
+        item.removeAttribute('tabindex');
         navButtonWidth += itemWidth;
       }
     });
-    navButton.style.width = navButtonWidth + 'px';
+    if (itemsToMove.length > 0) navButton.style.width = navButtonWidth + 'px';
+    else navButton.style.width = '';
     // Update overflow list
     if (itemsToMove.length > 0) {
       itemsToMove.forEach(item => {
+        item.style.opacity = ''; // Show original
+        item.style.pointerEvents = '';
+        item.style.userSelect = '';
+        item.removeAttribute('aria-hidden');
+        item.removeAttribute('tabindex');
         overflowList.appendChild(item);
       });
       overflowList.classList.add('show');
