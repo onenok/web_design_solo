@@ -47,8 +47,7 @@
     <button onclick="window.open('https://github.com/onenok?tab=repositories', '_blank')">View More</button>
 </div>
 <script>
-    function loadingAnimation() {
-        const loadingEl = document.getElementById('loading');
+    function loadingAnimation(loadingEl) {
         if (!loadingEl) return;
         let dots = 0;
         return setInterval(() => {
@@ -56,7 +55,7 @@
             loadingEl.textContent = 'Loading' + '.'.repeat(dots);
         }, 500);
     }
-    const loadingInterval = loadingAnimation();
+    const loadingInterval = loadingAnimation(document.getElementById('loading'));
     
     // Load and render GitHub repos without external plugins
     async function loadRepos(username, count = 5) {
