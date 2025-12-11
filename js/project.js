@@ -5,8 +5,7 @@ console.log('project page script loaded.');
 (function () {
 console.log('project page script loaded Double Check.');
 
-function loadingAnimation() {
-        const loadingEl = document.getElementById('loading');
+function loadingAnimation(loadingEl) {
         if (!loadingEl) return;
         let dots = 0;
         return setInterval(() => {
@@ -14,7 +13,7 @@ function loadingAnimation() {
             loadingEl.textContent = 'Loading' + '.'.repeat(dots);
         }, 500);
     }
-    const loadingInterval = loadingAnimation();
+    const loadingInterval = loadingAnimation(document.getElementById('loading'));
     
     // Load and render GitHub repos without external plugins
     async function loadRepos(username, count = 5) {

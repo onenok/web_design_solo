@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // handle browser back/forward buttons
-window.onpopstate = function (event) {
+window.onpopstate = function(event) {
     const contentDiv = document.querySelector('.main-content');
     const page = event.state?.page || window.location.hash.replace('#', '') || 'home';
 
