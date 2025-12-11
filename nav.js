@@ -43,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (topBar && logo && signUpButton && navOverflowButton) {
       containerWidth = topBar.clientWidth - logo.offsetWidth - signUpButton.offsetWidth - navOverflowButton.offsetWidth - overflowMenuWidth;
     }
-    const overflowMenuWidth = 50; // space reserved for overflow button
-    
+        
     // Clear previous overflow items
     overflowList.innerHTML = '';
     
