@@ -22,8 +22,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 12px;          /* 捲軸寬度 */
-    height: 12px;         /* 水平捲軸寬度（可選） */
+    width: 12px;          /* scrollbar width */
+    height: 12px;         /* horizontal scrollbar width */
 }
 
 ::-webkit-scrollbar-track {
@@ -70,12 +70,30 @@ section {margin-top: 20px;}
 
 section h2 {font-size: 1.8em; margin-bottom: 8px;}
 
+a.betterA {
+    color: var(--text-color); 
+    text-decoration: underline;
+    text-decoration-color: var(--text-color);
+    text-decoration-style: solid;
+    text-decoration-thickness: 1px;
+    cursor: pointer; 
+    transition: color 0.3s ease, text-decoration-color 0.3s ease; 
+}
+
+a.betterA:hover {
+    color: color-mix(in srgb, var(--text-color) 50%, white);
+    text-decoration-color: color-mix(in srgb, var(--text-color) 50%, white);
+    text-decoration-thickness: 2px;
+}
+
+
+
 .major-container {
     overflow-x: clip;
     display: grid;
-    grid-template-rows: 4% 1fr;
+    grid-template-rows: auto 1fr;
     gap: 0px;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 nav.top-bar {
@@ -137,6 +155,11 @@ nav.top-bar {
         .not-enough-space-signin-up-button {
             display: none; /* hidden by default until not enough space */
         }
+        /* Dropdown styles */
+        div.dropdown {
+            border: solid var(--nav-text-color);
+            border-width: 0px 1px;
+        }
     }
 
     .nav-overflow-button {
@@ -180,6 +203,8 @@ nav.top-bar {
             position: absolute;
             background-color: var(--nav-background-color);
             min-width: 250px;
+            max-width: 300px;
+            width: fit-content;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             padding: 12px 16px;
             z-index: 1;
@@ -190,6 +215,7 @@ nav.top-bar {
             a {
                 color: var(--nav-text-color);
                 padding: 12px 16px;
+                white-space: wrap;
                 text-decoration: none;
                 display: block;
                 transition: background-color 0.3s;
@@ -213,7 +239,7 @@ nav.top-bar {
 
 .container {
     display: grid;
-    grid-template-rows: 1fr 70px;
+    grid-template-rows: 1fr auto;
     gap: 0px;
     color: var(--text-color);
 }
@@ -301,15 +327,14 @@ footer {
     }
 }
 
-
-/* particles.js 背景容器 */
+/* particles.js background container */
 #particles-js {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -1; /* 確保背景在內容後面 */
+    z-index: -1; /* ensure background is behind content */
 }
 
 /* ---------- Responsive ---------- */
@@ -342,7 +367,7 @@ footer {
         .nav-button {
             display: none; /* hidden by default on mobile */
             position: fixed;
-            top: 4%; /* adjust according to nav height */
+            top: 10px; /* adjust according to nav height */
             right: 0;
             width: 320px;
             max-width: 100vw;      /* avoid exceeding viewport width */
@@ -409,12 +434,13 @@ footer {
             .dropdown-content {
                 top: 0;
                 padding: 0;
-                display: block;
+                display: none;
                 position: relative;
-                max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.5s ease;
                 border: none;
+                min-width: 0;
+                max-width: none;
+                width: 100%;
 
                 a {
                     color: var(--nav-text-color);
@@ -428,7 +454,7 @@ footer {
         }
         .dropdown:hover .dropdown-content {
             border: 1px solid var(--nav-text-color);
-            max-height: 100%;
+            display: block;
         }
     }
     .main-content > div[class$="-page"] {
@@ -457,12 +483,9 @@ footer {
     .aWeirdThing { display: none !important;}
 
     /* disable heavy background on mobile */
-    #particles-js { display: none; }
+    #particles-js { display: none; width: 0; height: 0; }
 
     img { max-width: 100%; height: auto; display: block; }
-
-    /* prevent body scroll when nav open */
-    body.nav-open { overflow: hidden; }
 
     input[type="text"], body.wrapped input[type="email"], body.wrapped textarea, body.wrapped select {
         width: 100%;
